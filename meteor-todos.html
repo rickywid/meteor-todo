@@ -29,9 +29,18 @@
 </body>
 
 <template name="task"> <!-- tempalte name "task" -->
-  <li class={{#if checked}}checked{{/if}}> <!-- if checked property is true, add 'checked' css class -->
+  <li class="{{#if checked}}checked{{/if}} {{#if private}}private{{/if}}"> <!-- if checked property is true, add 'checked' css class -->
     <button class="delete">&times;</button>
     <input type="checkbox" checked="{{checked}}" class="toggle-checked"> <!-- if checkbox is check marked, checked field equals true and vice versa -->
+    {{#if isOwner}} <!-- Display button only if the owner is the task owner -->
+      <button class="toggle-private">
+        {{#if private}}
+          Private
+        {{else}}
+          Public
+        {{/if}}
+      </button>
+    {{/if}}
     <span class="text"><strong>{{username}}</strong> {{text}}</span> <!-- display "text","username"from "tasks" helper -->
   </li>    
 </template>
