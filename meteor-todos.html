@@ -1,0 +1,37 @@
+<head>
+  <title>Todo List</title>
+</head>
+
+<body>
+  <div class="container">
+    <header>
+      <h1>Todo List</h1>
+      <label class="hide-completed">
+        <input type="checkbox" checked="{{hideCompleted}}" />
+        Hide Completed Tasks
+      </label>
+      {{> loginButtons}} <!-- included template with accounts-ui package -->
+      {{#if currentUser}} <!-- built in helper to check if user is logged in and get information about them -->
+        <form class="new-task">
+          <input type="text" name="text" placeholder="Add new task" />
+        </form>
+      {{/if}}
+    </header>
+
+    <ul>
+    <!--  iterate over the array and insert a task template for each value. Inside the #each block, we can display the text property of each array item using {{text}} -->
+      {{#each tasks}} <!-- helper name  "tasks" -->
+        {{> task}} <!-- will display any content within the template name "task"-->
+      {{/each}}
+    </ul>
+    <h3>Incompleted Tasks: {{incompleteCount}}</h3><!-- display # of incompleted tasks -->
+  </div>
+</body>
+
+<template name="task"> <!-- tempalte name "task" -->
+  <li class={{#if checked}}checked{{/if}}> <!-- if checked property is true, add 'checked' css class -->
+    <button class="delete">&times;</button>
+    <input type="checkbox" checked="{{checked}}" class="toggle-checked"> <!-- if checkbox is check marked, checked field equals true and vice versa -->
+    <span class="text"><strong>{{username}}</strong> {{text}}</span> <!-- display "text","username"from "tasks" helper -->
+  </li>    
+</template>
